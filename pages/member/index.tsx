@@ -4,7 +4,7 @@ import SideBar from "../../components/sections/SideBar";
 export default function Member() {
   return (
     <section className="overview overflow-auto">
-      <SideBar />
+      <SideBar activeMenu="overview" />
       <OverviewContent />
     </section>
   );

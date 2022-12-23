@@ -4,7 +4,7 @@ import TransactionDetailContent from "../../../components/sections/TransactionDe
 export default function TransactionsDetail() {
   return (
     <section className="transactions-detail overflow-auto">
-      <SideBar />
+      <SideBar activeMenu="transactions" />
       <TransactionDetailContent />
     </section>
   );

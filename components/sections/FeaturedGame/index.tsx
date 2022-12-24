@@ -13,27 +13,27 @@ export default function FeaturedGame() {
           data-aos="fade-up"
         >
           <GameItem
-            thumbnail="Thumbnail-1"
+            thumbnail="/img/thumbnail-1.png"
             title="Super Mechs"
             category="Mobile"
           />
           <GameItem
-            thumbnail="Thumbnail-2"
+            thumbnail="/img/thumbnail-2.png"
             title="Call of Duty: Modern"
             category="Mobile"
           />
           <GameItem
-            thumbnail="Thumbnail-3"
+            thumbnail="/img/thumbnail-3.png"
             title="Mobile Legends"
             category="Mobile"
           />
           <GameItem
-            thumbnail="Thumbnail-4"
+            thumbnail="/img/thumbnail-4.png"
             title="Clash of Clans"
             category="Mobile"
           />
           <GameItem
-            thumbnail="Thumbnail-5"
+            thumbnail="/img/thumbnail-5.png"
             title="Valorant"
             category="Desktop"
           />

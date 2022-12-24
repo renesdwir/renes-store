@@ -13,9 +13,9 @@ export default function ListLink(props: ListLinkProps) {
     <div className="col-md-4 col-6 mb-lg-0 mb-25">
       <p className="text-lg fw-semibold color-palette-1 mb-12">{title}</p>
       <ul className="list-unstyled">
-        {list?.map((e) => {
+        {list?.map((e, i) => {
           return (
-            <li className="mb-6">
+            <li className="mb-6" key={i}>
               <Link
                 href={e.url}
                 className="text-lg color-palette-1 text-decoration-none"

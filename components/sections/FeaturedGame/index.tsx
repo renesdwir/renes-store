@@ -1,6 +1,14 @@
+import axios from "axios";
+import { useEffect } from "react";
 import GameItem from "../../items/GameItem";
 
 export default function FeaturedGame() {
+  useEffect(async () => {
+    const data = await axios.get(
+      "http://localhost:3000/api/v1/players/landingpage"
+    );
+    console.log(data);
+  }, []);
   return (
     <section className="featured-game pt-50 pb-50">
       <div className="container-fluid">

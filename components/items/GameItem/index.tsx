@@ -4,12 +4,7 @@ import Link from "next/link";
 export interface GameItemProps {
   title: string;
   category: string;
-  thumbnail:
-    | "/img/thumbnail-1.png"
-    | "/img/thumbnail-2.png"
-    | "/img/thumbnail-3.png"
-    | "/img/thumbnail-4.png"
-    | "/img/thumbnail-5.png";
+  thumbnail: string;
 }
 
 export default function GameItem(props: GameItemProps) {

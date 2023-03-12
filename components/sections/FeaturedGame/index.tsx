@@ -1,13 +1,14 @@
 import axios from "axios";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import GameItem from "../../items/GameItem";
 
 export default function FeaturedGame() {
+  const [gameList, setGameList] = useState([]);
   useEffect(async () => {
-    const data = await axios.get(
+    const response = await axios.get(
       "http://localhost:3000/api/v1/players/landingpage"
     );
-    console.log(data);
+    console.log(response.data);
   }, []);
   return (
     <section className="featured-game pt-50 pb-50">
@@ -20,31 +21,16 @@ export default function FeaturedGame() {
           className="d-flex flex-row flex-lg-wrap overflow-setting justify-content-lg-between gap-lg-3 gap-4"
           data-aos="fade-up"
         >
-          <GameItem
-            thumbnail="/img/thumbnail-1.png"
-            title="Super Mechs"
-            category="Mobile"
-          />
-          <GameItem
-            thumbnail="/img/thumbnail-2.png"
-            title="Call of Duty: Modern"
-            category="Mobile"
-          />
-          <GameItem
-            thumbnail="/img/thumbnail-3.png"
-            title="Mobile Legends"
-            category="Mobile"
-          />
-          <GameItem
-            thumbnail="/img/thumbnail-4.png"
-            title="Clash of Clans"
-            category="Mobile"
-          />
-          <GameItem
-            thumbnail="/img/thumbnail-5.png"
-            title="Valorant"
-            category="Desktop"
-          />
+          {gameList.map((item) => {
+            return (
+              <GameItem
+                key={item._id}
+                thumbnail={`http://localhost:3000/${item.thumbnail}`}
+                title={item.name}
+                category={item.category.name}
+              />
+            );
+          })}
         </div>
       </div>
     </section>

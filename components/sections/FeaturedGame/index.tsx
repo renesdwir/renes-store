@@ -8,6 +8,7 @@ export default function FeaturedGame() {
     const response = await axios.get(
       "http://localhost:3000/api/v1/players/landingpage"
     );
+    setGameList(response.data.data);
     console.log(response.data);
   }, []);
   return (

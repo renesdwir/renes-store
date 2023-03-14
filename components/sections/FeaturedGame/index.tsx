@@ -1,15 +1,16 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
+import { getFeaturedGame } from "../../../services/player";
 import GameItem from "../../items/GameItem";
 
 export default function FeaturedGame() {
   const [gameList, setGameList] = useState([]);
-  useEffect(async () => {
-    const response = await axios.get(
-      "http://localhost:3000/api/v1/players/landingpage"
-    );
-    setGameList(response.data.data);
-    console.log(response.data);
+  const getFeaturedGameList = useCallback(async () => {
+    const data = await getFeaturedGame();
+    setGameList(data);
+  }, [getFeaturedGame]);
+  useEffect(() => {
+    getFeaturedGameList();
   }, []);
   return (
     <section className="featured-game pt-50 pb-50">

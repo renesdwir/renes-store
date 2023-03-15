@@ -1,10 +1,19 @@
-import React from "react";
+import { useRouter } from "next/router";
+import React, { useEffect } from "react";
 import Footer from "../../components/sections/Footer";
 import Navbar from "../../components/sections/Navbar";
 import TopUpForm from "../../components/sections/TopUpForm";
 import TopUpItem from "../../components/sections/TopUpItem";
 
 export default function Detail() {
+  const { query, isReady } = useRouter();
+  useEffect(() => {
+    if (isReady) {
+      console.log("ready");
+    } else {
+      console.log("not ready");
+    }
+  }, []);
   return (
     <>
       <Navbar />

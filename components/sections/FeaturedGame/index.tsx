@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useCallback, useEffect, useState } from "react";
+import { GameItemTypes } from "../../../services/dataTypes";
 import { getFeaturedGame } from "../../../services/player";
 import GameItem from "../../items/GameItem";
 
@@ -12,6 +13,7 @@ export default function FeaturedGame() {
   useEffect(() => {
     getFeaturedGameList();
   }, []);
+  const API_IMG = process.env.NEXT_PUBLIC_IMG;
   return (
     <section className="featured-game pt-50 pb-50">
       <div className="container-fluid">
@@ -23,11 +25,11 @@ export default function FeaturedGame() {
           className="d-flex flex-row flex-lg-wrap overflow-setting justify-content-lg-between gap-lg-3 gap-4"
           data-aos="fade-up"
         >
-          {gameList.map((item) => {
+          {gameList.map((item: GameItemTypes) => {
             return (
               <GameItem
                 key={item._id}
-                thumbnail={`http://localhost:3000/${item.thumbnail}`}
+                thumbnail={`${API_IMG}/${item.thumbnail}`}
                 title={item.name}
                 category={item.category.name}
               />

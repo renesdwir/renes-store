@@ -13,7 +13,7 @@ export default function Detail() {
     } else {
       console.log("not ready");
     }
-  }, []);
+  }, [isReady]);
   return (
     <>
       <Navbar />

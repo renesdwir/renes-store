@@ -1,14 +1,20 @@
 import { useRouter } from "next/router";
-import React, { useEffect } from "react";
+import React, { useCallback, useEffect } from "react";
 import Footer from "../../components/sections/Footer";
 import Navbar from "../../components/sections/Navbar";
 import TopUpForm from "../../components/sections/TopUpForm";
 import TopUpItem from "../../components/sections/TopUpItem";
+import { getDetailVoucher } from "../../services/player";
 
 export default function Detail() {
   const { query, isReady } = useRouter();
+  const getVoucherDetailAPI = useCallback(async (id: string) => {
+    const data = await getDetailVoucher(id);
+    console.log(data);
+  }, []);
   useEffect(() => {
     if (isReady) {
+      getVoucherDetailAPI(query.id);
       console.log("ready");
     } else {
       console.log("not ready");

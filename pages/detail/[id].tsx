@@ -10,7 +10,7 @@ export default function Detail() {
   const { query, isReady } = useRouter();
   const getVoucherDetailAPI = useCallback(async (id: string) => {
     const data = await getDetailVoucher(id);
-    setDataItem(data.detail);
+    setDataItem(data);
   }, []);
   const [dataItem, setDataItem] = useState({
     name: "",

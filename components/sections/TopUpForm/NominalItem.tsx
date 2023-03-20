@@ -1,23 +1,29 @@
 import React from "react";
-
-export default function NominalItem() {
+interface NominalItemProps {
+  _id: string;
+  coinQuantity: number;
+  coinName: string;
+  price: number;
+}
+export default function NominalItem(props: NominalItemProps) {
+  const { _id, coinQuantity, coinName, price } = props;
   return (
     <label
       className="col-lg-4 col-sm-6 ps-md-15 pe-md-15 pt-md-15 pb-md-15 pt-10 pb-10"
-      htmlFor="topup3"
+      htmlFor={_id}
     >
       <input
         className="d-none"
         type="radio"
-        id="topup3"
+        id={_id}
         name="topup"
-        value="topup3"
+        value={_id}
       />
       <div className="detail-card">
         <div className="d-flex justify-content-between">
           <p className="text-3xl color-palette-1 m-0">
-            <span className="fw-medium">350</span>
-            Gold
+            <span className="fw-medium">{coinQuantity}</span>
+            {coinName}
           </p>
           <svg
             id="icon-check"
@@ -37,7 +43,7 @@ export default function NominalItem() {
             />
           </svg>
         </div>
-        <p className="text-lg color-palette-1 m-0">Rp 3.250.000</p>
+        <p className="text-lg color-palette-1 m-0">{price}</p>
       </div>
     </label>
   );

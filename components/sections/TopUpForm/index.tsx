@@ -1,5 +1,6 @@
 import Link from "next/link";
 import NominalItem from "./NominalItem";
+import PaymentItem from "./PaymentItem";
 
 export default function TopUpForm() {
   return (
@@ -27,9 +28,12 @@ export default function TopUpForm() {
           Nominal Top Up
         </p>
         <div className="row justify-content-between">
-          <NominalItem />
-          <NominalItem />
-          <NominalItem />
+          <NominalItem
+            _id={"123123"}
+            coinQuantity={12}
+            coinName={"Diamond"}
+            price={12000}
+          />
           <div className="col-lg-4 col-sm-6"></div>
         </div>
       </div>
@@ -39,45 +43,7 @@ export default function TopUpForm() {
         </p>
         <fieldset id="paymentMethod">
           <div className="row justify-content-between">
-            <label
-              className="col-lg-4 col-sm-6 ps-md-15 pe-md-15 pt-md-15 pb-md-15 pt-10 pb-10"
-              htmlFor="transfer"
-            >
-              <input
-                className="d-none"
-                type="radio"
-                id="transfer"
-                name="paymentMethod"
-                value="transfer"
-              />
-              <div className="detail-card">
-                <div className="d-flex justify-content-between">
-                  <p className="text-3xl color-palette-1 fw-medium m-0">
-                    Transfer
-                  </p>
-                  <svg
-                    id="icon-check"
-                    width="20"
-                    height="20"
-                    viewBox="0 0 20 20"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <circle cx="10" cy="10" r="10" fill="#CDF1FF" />
-                    <path
-                      d="M5.83301 10L8.46459 12.5L14.1663 7.5"
-                      stroke="#00BAFF"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    />
-                  </svg>
-                </div>
-                <p className="text-lg color-palette-1 m-0">
-                  Worldwide Available
-                </p>
-              </div>
-            </label>
+            <PaymentItem />
             <label
               className="col-lg-4 col-sm-6 ps-md-15 pe-md-15 pt-md-15 pb-md-15 pt-10 pb-10"
               htmlFor="visa"

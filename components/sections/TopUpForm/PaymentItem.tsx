@@ -1,21 +1,27 @@
 import React from "react";
 
-export default function PaymentItem() {
+interface PaymentItemProps {
+  bankId: string;
+  type: string;
+  name: string;
+}
+export default function PaymentItem(props: PaymentItemProps) {
+  const { bankId, type, name } = props;
   return (
     <label
       className="col-lg-4 col-sm-6 ps-md-15 pe-md-15 pt-md-15 pb-md-15 pt-10 pb-10"
-      htmlFor="transfer"
+      htmlFor={bankId}
     >
       <input
         className="d-none"
         type="radio"
-        id="transfer"
+        id={bankId}
         name="paymentMethod"
-        value="transfer"
+        value={bankId}
       />
       <div className="detail-card">
         <div className="d-flex justify-content-between">
-          <p className="text-3xl color-palette-1 fw-medium m-0">Transfer</p>
+          <p className="text-3xl color-palette-1 fw-medium m-0">{type}</p>
           <svg
             id="icon-check"
             width="20"
@@ -34,7 +40,7 @@ export default function PaymentItem() {
             />
           </svg>
         </div>
-        <p className="text-lg color-palette-1 m-0">Worldwide Available</p>
+        <p className="text-lg color-palette-1 m-0">{name}</p>
       </div>
     </label>
   );

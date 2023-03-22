@@ -29,12 +29,15 @@ export default function TopUpForm(props) {
           Nominal Top Up
         </p>
         <div className="row justify-content-between">
-          <NominalItem
-            _id={"123123"}
-            coinQuantity={12}
-            coinName={"Diamond"}
-            price={12000}
-          />
+          {nominals.map((nominal) => {
+            <NominalItem
+              _id={nominal._id}
+              coinQuantity={nominal.coinQuantity}
+              coinName={nominal.coinName}
+              price={nominal.price}
+            />;
+          })}
+
           <div className="col-lg-4 col-sm-6"></div>
         </div>
       </div>

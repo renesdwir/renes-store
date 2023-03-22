@@ -11,23 +11,19 @@ export default function Detail() {
   const getVoucherDetailAPI = useCallback(async (id: string) => {
     const data = await getDetailVoucher(id);
     setDataItem(data);
+    setNominals(data.nominals);
+    setPayments(data.payment);
   }, []);
   const [dataItem, setDataItem] = useState({
     name: "",
     thumbnail: "",
     category: { name: "" },
   });
+  const [nominals, setNominals] = useState([]);
+  const [payments, setPayments] = useState([]);
   useEffect(() => {
-    if (isReady) {
-      if (typeof query?.id === "string") {
-        // check if query?.id is defined and a string
-        getVoucherDetailAPI(query.id);
-        console.log("ready");
-      } else {
-        console.log("Invalid voucher id");
-      }
-    } else {
-      console.log("not ready");
+    if (isReady && typeof query?.id === "string") {
+      getVoucherDetailAPI(query.id);
     }
   }, [isReady]);
   return (
@@ -50,7 +46,7 @@ export default function Detail() {
             <div className="col-xl-9 col-lg-8 col-md-7 ps-md-25">
               <TopUpItem data={dataItem} type="desktop" />
               <hr />
-              <TopUpForm nominals={} payments={} />
+              <TopUpForm nominals={nominals} payments={payments} />
             </div>
           </div>
         </div>

@@ -10,9 +10,9 @@ export default function Detail() {
   const { query, isReady } = useRouter();
   const getVoucherDetailAPI = useCallback(async (id: string) => {
     const data = await getDetailVoucher(id);
-    setDataItem(data);
-    setNominals(data.nominals);
-    setPayments(data.payment);
+    setDataItem(data.voucher);
+    setNominals(data.voucher.nominals);
+    setPayments(data.payments);
   }, []);
   const [dataItem, setDataItem] = useState({
     name: "",

@@ -29,14 +29,15 @@ export default function TopUpForm(props) {
           Nominal Top Up
         </p>
         <div className="row justify-content-between">
-          {nominals.map((nominal) => {
+          {nominals.map((nominal) => (
             <NominalItem
+              key={nominal._id}
               _id={nominal._id}
               coinQuantity={nominal.coinQuantity}
               coinName={nominal.coinName}
               price={nominal.price}
-            />;
-          })}
+            />
+          ))}
 
           <div className="col-lg-4 col-sm-6"></div>
         </div>
@@ -47,10 +48,17 @@ export default function TopUpForm(props) {
         </p>
         <fieldset id="paymentMethod">
           <div className="row justify-content-between">
-            <PaymentItem bankId="123" type="Transfer" name="BCA" />
-            <PaymentItem bankId="1223" type="Transfer" name="Mandiri" />
-            <PaymentItem bankId="1323" type="Transfer" name="Gopay" />
-
+            {payments.map((payment) => {
+              return payment.banks.map((bank) => {
+                return (
+                  <PaymentItem
+                    bankId={bank._id}
+                    type={payment.type}
+                    name={bank.bankName}
+                  />
+                );
+              });
+            })}
             <div className="col-lg-4 col-sm-6"></div>
           </div>
         </fieldset>

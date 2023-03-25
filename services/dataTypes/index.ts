@@ -25,3 +25,10 @@ export interface PaymentTypes {
   status: string;
   banks: BanksTypes[];
 }
+
+export interface NominalsTypes {
+  _id: string;
+  coinQuantity: number;
+  coinName: string;
+  price: number;
+}

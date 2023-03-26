@@ -19,3 +19,12 @@ export const getDetailVoucher = async (id: string) => {
     console.log(error);
   }
 };
+export const getGameCategory = async () => {
+  try {
+    const URL = `players/category`;
+    const response = await axios.get(`${BASE_URL}/${API_VERSION}/${URL}`);
+    return response.data.data;
+  } catch (error) {
+    console.log(error);
+  }
+};

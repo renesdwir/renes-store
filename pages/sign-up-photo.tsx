@@ -1,10 +1,12 @@
 import Image from "next/image";
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { getGameCategory } from "../services/player";
 
 export default function SignUpPhoto() {
+  const [categories, setCategories] = useState([]);
   const getGameCategoryAPI = useCallback(async () => {
     const data = await getGameCategory();
+    setCategories(data);
   }, [getGameCategory]);
 
   useEffect(() => {
@@ -53,13 +55,11 @@ export default function SignUpPhoto() {
                   className="form-select d-block w-100 rounded-pill text-lg"
                   aria-label="Favorite Game"
                 >
-                  <option value="" disabled selected>
-                    Select Category
-                  </option>
-                  <option value="fps">First Person Shoter</option>
-                  <option value="rpg">Role Playing Game</option>
-                  <option value="arcade">Arcade</option>
-                  <option value="sport">Sport</option>
+                  {categories.map((category) => {
+                    return (
+                      <option value={category._id}>{category.name}</option>
+                    );
+                  })}
                 </select>
               </div>
             </div>

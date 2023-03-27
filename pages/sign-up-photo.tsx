@@ -4,6 +4,7 @@ import { getGameCategory } from "../services/player";
 
 export default function SignUpPhoto() {
   const [categories, setCategories] = useState([]);
+  const [favorite, setFavorite] = useState("");
   const getGameCategoryAPI = useCallback(async () => {
     const data = await getGameCategory();
     setCategories(data);
@@ -54,6 +55,8 @@ export default function SignUpPhoto() {
                   name="category"
                   className="form-select d-block w-100 rounded-pill text-lg"
                   aria-label="Favorite Game"
+                  value={favorite}
+                  onChange={(e) => setFavorite(e.target.value)}
                 >
                   {categories.map((category) => {
                     return (

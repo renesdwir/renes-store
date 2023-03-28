@@ -8,11 +8,13 @@ export default function SignUpPhoto() {
   const getGameCategoryAPI = useCallback(async () => {
     const data = await getGameCategory();
     setCategories(data);
+    setFavorite(data[0]._id);
   }, [getGameCategory]);
 
   useEffect(() => {
     getGameCategoryAPI();
   }, []);
+  const onSubmit = () => {};
   return (
     <section className="sign-up-photo mx-auto pt-lg-227 pb-lg-227 pt-130 pb-50">
       <div className="container mx-auto">
@@ -68,13 +70,13 @@ export default function SignUpPhoto() {
             </div>
 
             <div className="button-group d-flex flex-column mx-auto">
-              <a
+              <button
+                type="button"
                 className="btn btn-create fw-medium text-lg text-white rounded-pill mb-16"
-                href="./sign-up-photo-success.html"
-                role="button"
+                onClick={onSubmit}
               >
                 Create My Account
-              </a>
+              </button>
               {/* <button type="submit" className="btn btn-create fw-medium text-lg text-white rounded-pill mb-16"
                             role="button">Create My Account</button> */}
               <a

@@ -5,7 +5,7 @@ import { getGameCategory } from "../services/player";
 export default function SignUpPhoto() {
   const [categories, setCategories] = useState([]);
   const [favorite, setFavorite] = useState("");
-  const [image, setImage] = useState(null);
+  const [image, setImage] = useState("");
   const [imagePreview, setImagePreview] = useState(null);
   const getGameCategoryAPI = useCallback(async () => {
     const data = await getGameCategory();
@@ -16,7 +16,14 @@ export default function SignUpPhoto() {
   useEffect(() => {
     getGameCategoryAPI();
   }, []);
-  const onSubmit = () => {};
+  const onSubmit = async () => {
+    const localForm = await localStorage.getItem("user-form");
+    const form = JSON.parse(localForm);
+    const data = new FormData();
+    data.append("image", image);
+    data.append("email", form.email);
+    data.append("name", form.name);
+  };
   return (
     <section className="sign-up-photo mx-auto pt-lg-227 pb-lg-227 pt-130 pb-50">
       <div className="container mx-auto">
@@ -77,7 +84,9 @@ export default function SignUpPhoto() {
                 >
                   {categories.map((category) => {
                     return (
-                      <option value={category._id}>{category.name}</option>
+                      <option key={category._id} value={category._id}>
+                        {category.name}
+                      </option>
                     );
                   })}
                 </select>

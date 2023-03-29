@@ -26,12 +26,20 @@ export default function SignUpPhoto() {
               <div className="mb-20">
                 <div className="image-upload text-center">
                   <label htmlFor="avatar">
-                    <Image
-                      src="/icon/upload.svg"
-                      width={120}
-                      height={120}
-                      alt="upload"
-                    />
+                    {imagePreview ? (
+                      <img
+                        src={imagePreview}
+                        className="img-upload"
+                        alt="upload"
+                      />
+                    ) : (
+                      <Image
+                        src={"/icon/upload.svg"}
+                        width={120}
+                        height={120}
+                        alt="upload"
+                      />
+                    )}
                   </label>
                   <input
                     id="avatar"

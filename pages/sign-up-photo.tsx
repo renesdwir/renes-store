@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { useCallback, useEffect, useState } from "react";
+import { setSignUp } from "../services/auth";
 import { getGameCategory } from "../services/player";
 
 export default function SignUpPhoto() {
@@ -29,6 +30,7 @@ export default function SignUpPhoto() {
     data.append("role", "user");
     data.append("status", "Y");
     data.append("favorite", favorite);
+    const result = setSignUp(data);
   };
   return (
     <section className="sign-up-photo mx-auto pt-lg-227 pb-lg-227 pt-130 pb-50">

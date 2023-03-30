@@ -23,6 +23,12 @@ export default function SignUpPhoto() {
     data.append("image", image);
     data.append("email", form.email);
     data.append("name", form.name);
+    data.append("password", form.password);
+    data.append("username", form.name);
+    data.append("phoneNumber", "08123123");
+    data.append("role", "user");
+    data.append("status", "Y");
+    data.append("favorite", favorite);
   };
   return (
     <section className="sign-up-photo mx-auto pt-lg-227 pb-lg-227 pt-130 pb-50">

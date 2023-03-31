@@ -8,6 +8,10 @@ export default function SignUpPhoto() {
   const [favorite, setFavorite] = useState("");
   const [image, setImage] = useState("");
   const [imagePreview, setImagePreview] = useState(null);
+  const [localForm, setLocalForm] = useState({
+    name: "",
+    email: "",
+  });
   const getGameCategoryAPI = useCallback(async () => {
     const data = await getGameCategory();
     setCategories(data);
@@ -15,11 +19,15 @@ export default function SignUpPhoto() {
   }, [getGameCategory]);
 
   useEffect(() => {
+    const getLocalForm = localStorage.getItem("user-form");
+    setLocalForm(JSON.parse(getLocalForm));
+  }, []);
+  useEffect(() => {
     getGameCategoryAPI();
   }, []);
   const onSubmit = async () => {
-    const localForm = await localStorage.getItem("user-form");
-    const form = JSON.parse(localForm);
+    const getLocalForm = await localStorage.getItem("user-form");
+    const form = JSON.parse(getLocalForm);
     const data = new FormData();
     data.append("image", image);
     data.append("email", form.email);
@@ -70,10 +78,10 @@ export default function SignUpPhoto() {
                 </div>
               </div>
               <h2 className="fw-bold text-xl text-center color-palette-1 m-0">
-                Shayna Anne
+                {localForm.name}
               </h2>
               <p className="text-lg text-center color-palette-1 m-0">
-                shayna@anne.com
+                {localForm.email}
               </p>
               <div className="pt-50 pb-50">
                 <label

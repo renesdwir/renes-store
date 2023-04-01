@@ -4,8 +4,10 @@ import { setSignUp } from "../services/auth";
 import { getGameCategory } from "../services/player";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useRouter } from "next/router";
 
 export default function SignUpPhoto() {
+  const router = useRouter();
   const [categories, setCategories] = useState([]);
   const [favorite, setFavorite] = useState("");
   const [image, setImage] = useState("");
@@ -41,6 +43,13 @@ export default function SignUpPhoto() {
     data.append("status", "Y");
     data.append("favorite", favorite);
     const result = setSignUp(data);
+    if (result.error === 1) {
+      toast.error(result.message);
+    } else {
+      toast.success("Successfully Registered");
+      router.push("/sign-up-success");
+      localStorage.removeItem("user-form");
+    }
   };
   return (
     <section className="sign-up-photo mx-auto pt-lg-227 pb-lg-227 pt-130 pb-50">

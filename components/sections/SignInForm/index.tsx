@@ -1,6 +1,15 @@
 import Link from "next/link";
+import { useState } from "react";
 
 export default function SignInForm() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const onSubmit = () => {
+    const data = {
+      email: email,
+      password: password,
+    };
+  };
   return (
     <>
       <h2 className="text-4xl fw-bold color-palette-1 mb-10">Sign In</h2>
@@ -17,10 +26,11 @@ export default function SignInForm() {
         <input
           type="email"
           className="form-control rounded-pill text-lg"
-          id="email"
           name="email"
           aria-describedby="email"
           placeholder="Enter your email address"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
         />
       </div>
       <div className="pt-30">
@@ -33,20 +43,20 @@ export default function SignInForm() {
         <input
           type="password"
           className="form-control rounded-pill text-lg"
-          id="password"
           name="password"
           aria-describedby="password"
           placeholder="Your password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
         />
       </div>
       <div className="button-group d-flex flex-column mx-auto pt-50">
-        <Link
+        <button
+          type="button"
           className="btn btn-sign-in fw-medium text-lg text-white rounded-pill mb-16"
-          href="/"
-          role="button"
         >
           Continue to Sign In
-        </Link>
+        </button>
         {/* <button type="submit"
                                 className="btn btn-sign-in fw-medium text-lg text-white rounded-pill mb-16"
                                 role="button">Continue to Sign In</button>  */}
@@ -54,6 +64,7 @@ export default function SignInForm() {
           className="btn btn-sign-up fw-medium text-lg color-palette-1 rounded-pill"
           href="/sign-up"
           role="button"
+          onSubmit={onSubmit}
         >
           Sign Up
         </Link>

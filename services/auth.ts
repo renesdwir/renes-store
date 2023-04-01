@@ -7,6 +7,9 @@ export const setSignUp = async (data) => {
     const response = await axios
       .post(`${BASE_URL}/${API_VERSION}/${URL}`, data)
       .catch((err) => err.response);
+    if (response.error === 1) {
+      return response.data;
+    }
     return response.data.data;
   } catch (error) {
     console.log(error);

@@ -1,14 +1,30 @@
 import Link from "next/link";
 import { useState } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { setLogin } from "../../../services/auth";
+import { useRouter } from "next/router";
 
 export default function SignInForm() {
+  const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const onSubmit = () => {
+  const onSubmit = async () => {
     const data = {
       email: email,
       password: password,
     };
+    if (!email || !password) {
+      toast.error("Email & Password Required!");
+    } else {
+      const response = await setLogin(data);
+      if (response.error) {
+        toast.error(response.message);
+      } else {
+        toast.success("Login Success");
+        router.push("/");
+      }
+    }
   };
   return (
     <>
@@ -69,6 +85,7 @@ export default function SignInForm() {
           Sign Up
         </Link>
       </div>
+      <ToastContainer />
     </>
   );
 }

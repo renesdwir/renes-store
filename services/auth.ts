@@ -26,7 +26,7 @@ export async function setLogin(data: LoginTypes) {
     // if (response.status  > 300) {
     // const res = {
     //   error:true,
-    //   message:response.data.message
+    //   message:response.data.message,
     //   data: null
     // }
     //   return res;

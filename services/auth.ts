@@ -3,7 +3,7 @@ import { LoginTypes } from "./dataTypes";
 import callAPI from "../config/api";
 const BASE_URL = process.env.NEXT_PUBLIC_API;
 const API_VERSION = "api/v1";
-export const setSignUp = async (data) => {
+export const setSignUp = async (data: FormData) => {
   try {
     const url = `${BASE_URL}/${API_VERSION}/auth/signup`;
     // const URL = "auth/signup";

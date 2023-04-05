@@ -25,7 +25,7 @@ export default function FeaturedGame() {
           className="d-flex flex-row flex-lg-wrap overflow-setting justify-content-lg-between gap-lg-3 gap-4"
           data-aos="fade-up"
         >
-          {gameList.map((item: GameItemTypes) => {
+          {gameList?.map((item: GameItemTypes) => {
             return (
               <GameItem
                 key={item._id}

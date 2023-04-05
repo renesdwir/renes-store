@@ -2,6 +2,9 @@ import Link from "next/link";
 import { useState } from "react";
 import cx from "classnames";
 import { useRouter } from "next/router";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 export default function SignUpForm() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -17,8 +20,20 @@ export default function SignUpForm() {
       email,
       password,
     };
-    localStorage.setItem("user-form", JSON.stringify(userForm));
-    router.push("/sign-up-photo");
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!userForm.name) {
+      toast.error("Full Name is Required!");
+    } else if (!userForm.email) {
+      toast.error("Email is Required!");
+    } else if (!emailRegex.test(userForm.email)) {
+      toast.error("Invalid email!");
+    } else if (!userForm.password) {
+      toast.error("Password is Required!");
+    } else {
+      localStorage.setItem("user-form", JSON.stringify(userForm));
+      router.push("/sign-up-photo");
+    }
   };
   return (
     <>
@@ -93,6 +108,7 @@ export default function SignUpForm() {
           Sign In
         </Link>
       </div>
+      <ToastContainer theme="colored" autoClose={2000} />
     </>
   );
 }

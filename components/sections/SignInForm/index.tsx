@@ -70,6 +70,7 @@ export default function SignInForm() {
         <button
           type="button"
           className="btn btn-sign-in fw-medium text-lg text-white rounded-pill mb-16"
+          onClick={onSubmit}
         >
           Continue to Sign In
         </button>
@@ -78,14 +79,13 @@ export default function SignInForm() {
                                 role="button">Continue to Sign In</button>  */}
         <Link
           className="btn btn-sign-up fw-medium text-lg color-palette-1 rounded-pill"
-          href="/sign-up"
+          href={"/sign-up"}
           role="button"
-          onSubmit={onSubmit}
         >
           Sign Up
         </Link>
       </div>
-      <ToastContainer />
+      <ToastContainer theme="colored" autoClose={2000} />
     </>
   );
 }

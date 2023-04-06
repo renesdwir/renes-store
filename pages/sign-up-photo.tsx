@@ -42,8 +42,8 @@ export default function SignUpPhoto() {
     data.append("role", "user");
     data.append("status", "Y");
     data.append("favorite", favorite);
-    const result = setSignUp(data);
-    if (result.error) {
+    const result = await setSignUp(data);
+    if (result?.error) {
       toast.error(result.message);
     } else {
       toast.success("Successfully Registered");
@@ -89,10 +89,10 @@ export default function SignUpPhoto() {
                 </div>
               </div>
               <h2 className="fw-bold text-xl text-center color-palette-1 m-0">
-                {localForm.name}
+                {localForm?.name}
               </h2>
               <p className="text-lg text-center color-palette-1 m-0">
-                {localForm.email}
+                {localForm?.email}
               </p>
               <div className="pt-50 pb-50">
                 <label
@@ -140,7 +140,7 @@ export default function SignUpPhoto() {
             </div>
           </div>
         </form>
-        <ToastContainer />
+        <ToastContainer theme="colored" autoClose={2000} />
       </div>
     </section>
   );

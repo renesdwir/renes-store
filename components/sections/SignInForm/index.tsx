@@ -4,6 +4,8 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { setLogin } from "../../../services/auth";
 import { useRouter } from "next/router";
+import jwtDecode from "jwt-decode";
+import Cookies from "js-cookie";
 
 export default function SignInForm() {
   const router = useRouter();
@@ -18,10 +20,14 @@ export default function SignInForm() {
       toast.error("Email & Password Required!");
     } else {
       const response = await setLogin(data);
-      if (response.error) {
+      if (response?.error) {
         toast.error(response.message);
       } else {
         toast.success("Login Success");
+        const { token } = response!.data;
+        // const user = jwtDecode(token);
+        const tokenBase64 = btoa(token);
+        Cookies.set("token", tokenBase64, { expires: 1 });
         router.push("/");
       }
     }

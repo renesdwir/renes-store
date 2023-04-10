@@ -11,6 +11,9 @@ interface TopUpFormProps {
 export default function TopUpForm(props: TopUpFormProps) {
   const { nominals, payments } = props;
   const [verifyID, setVerifyID] = useState("");
+  const onNominalItemChange = (data: NominalsTypes) => {
+    localStorage.setItem("nominal-item", JSON.stringify(data));
+  };
   return (
     <form action="./checkout.html" method="POST">
       <div className="pt-md-50 pt-30">
@@ -27,7 +30,7 @@ export default function TopUpForm(props: TopUpFormProps) {
             id="ID"
             name="ID"
             aria-describedby="verifyID"
-            placeholder="Enter your ID"
+            placeholder="Enter you  r ID"
             value={verifyID}
             onChange={(e) => setVerifyID(e.target.value)}
           />
@@ -45,6 +48,7 @@ export default function TopUpForm(props: TopUpFormProps) {
               coinQuantity={nominal.coinQuantity}
               coinName={nominal.coinName}
               price={nominal.price}
+              onChange={() => onNominalItemChange(nominal)}
             />
           ))}
 

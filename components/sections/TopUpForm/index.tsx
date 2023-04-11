@@ -1,5 +1,9 @@
 import Link from "next/link";
-import { NominalsTypes, PaymentTypes } from "../../../services/dataTypes";
+import {
+  BanksTypes,
+  NominalsTypes,
+  PaymentTypes,
+} from "../../../services/dataTypes";
 import NominalItem from "./NominalItem";
 import PaymentItem from "./PaymentItem";
 import { useState } from "react";
@@ -11,9 +15,22 @@ interface TopUpFormProps {
 export default function TopUpForm(props: TopUpFormProps) {
   const { nominals, payments } = props;
   const [verifyID, setVerifyID] = useState("");
+  const [bankAccountName, setBankAccountName] = useState("");
+  const [nominalItem, setNominalItem] = useState({});
+  const [paymentItem, setPaymentItem] = useState({});
   const onNominalItemChange = (data: NominalsTypes) => {
-    localStorage.setItem("nominal-item", JSON.stringify(data));
+    // localStorage.setItem("nominal-item", JSON.stringify(data));
+    setNominalItem(data);
   };
+  const onPaymentItemChange = (payment: PaymentTypes, bank: BanksTypes) => {
+    const _data = {
+      payment,
+      bank,
+    };
+    setPaymentItem(_data);
+    // localStorage.setItem("payment-item", JSON.stringify(_data));
+  };
+  const onSubmit = () => {};
   return (
     <form action="./checkout.html" method="POST">
       <div className="pt-md-50 pt-30">
@@ -68,6 +85,7 @@ export default function TopUpForm(props: TopUpFormProps) {
                     bankId={bank._id}
                     type={payment.type}
                     name={bank.bankName}
+                    onChange={() => onPaymentItemChange(payment, bank)}
                   />
                 );
               });
@@ -90,16 +108,18 @@ export default function TopUpForm(props: TopUpFormProps) {
           name="bankAccount"
           aria-describedby="bankAccount"
           placeholder="Enter your Bank Account Name"
+          value={bankAccountName}
+          onChange={(e) => setBankAccountName(e.target.value)}
         />
       </div>
       <div className="d-sm-block d-flex flex-column w-100">
-        <Link
-          href="/checkout"
-          type="submit"
+        <button
+          type="button"
           className="btn btn-submit rounded-pill fw-medium text-white border-0 text-lg"
+          onClick={onSubmit}
         >
           Continue
-        </Link>
+        </button>
       </div>
     </form>
   );

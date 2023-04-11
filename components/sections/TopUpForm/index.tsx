@@ -7,12 +7,14 @@ import {
 import NominalItem from "./NominalItem";
 import PaymentItem from "./PaymentItem";
 import { useState } from "react";
+import { useRouter } from "next/router";
 
 interface TopUpFormProps {
   nominals: NominalsTypes[];
   payments: PaymentTypes[];
 }
 export default function TopUpForm(props: TopUpFormProps) {
+  const router = useRouter();
   const { nominals, payments } = props;
   const [verifyID, setVerifyID] = useState("");
   const [bankAccountName, setBankAccountName] = useState("");
@@ -30,7 +32,25 @@ export default function TopUpForm(props: TopUpFormProps) {
     setPaymentItem(_data);
     // localStorage.setItem("payment-item", JSON.stringify(_data));
   };
-  const onSubmit = () => {};
+  const onSubmit = () => {
+    if (
+      verifyID === "" ||
+      bankAccountName === "" ||
+      Object.keys(nominalItem).length === 0 ||
+      Object.keys(paymentItem).length === 0
+    ) {
+      alert("silahkan isi semua data");
+    } else {
+      const data = {
+        verifyID,
+        bankAccountName,
+        nominalItem,
+        paymentItem,
+      };
+      localStorage.setItem("data-topup", JSON.stringify(data));
+      router.push("/checkout");
+    }
+  };
   return (
     <form action="./checkout.html" method="POST">
       <div className="pt-md-50 pt-30">

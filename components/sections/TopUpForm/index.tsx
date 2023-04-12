@@ -8,6 +8,7 @@ import NominalItem from "./NominalItem";
 import PaymentItem from "./PaymentItem";
 import { useState } from "react";
 import { useRouter } from "next/router";
+import { toast } from "react-toastify";
 
 interface TopUpFormProps {
   nominals: NominalsTypes[];
@@ -39,7 +40,7 @@ export default function TopUpForm(props: TopUpFormProps) {
       Object.keys(nominalItem).length === 0 ||
       Object.keys(paymentItem).length === 0
     ) {
-      alert("silahkan isi semua data");
+      toast.error("Please fill in all data");
     } else {
       const data = {
         verifyID,

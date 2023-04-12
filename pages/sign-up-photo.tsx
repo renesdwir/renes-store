@@ -140,7 +140,7 @@ export default function SignUpPhoto() {
             </div>
           </div>
         </form>
-        <ToastContainer theme="colored" autoClose={2000} />
+        {/* <ToastContainer theme="colored" autoClose={2000} /> */}
       </div>
     </section>
   );

@@ -35,10 +35,16 @@ export default function CheckoutDetail() {
           </span>
         </p>
         <p className="text-lg color-palette-1 mb-20">
-          Price <span className="purchase-details">Rp 42.280.500</span>
+          Price{" "}
+          <span className="purchase-details">
+            {dataTopUp.nominalItem.price}
+          </span>
         </p>
         <p className="text-lg color-palette-1 mb-20">
-          Tax (10%) <span className="purchase-details">Rp 4.228.000</span>
+          Tax (10%){" "}
+          <span className="purchase-details">
+            {(dataTopUp.nominalItem.price * 10) / 100}
+          </span>
         </p>
         <p className="text-lg color-palette-1 mb-20">
           Total{" "}

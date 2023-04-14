@@ -108,7 +108,7 @@ export default function SignUpForm() {
           Sign In
         </Link>
       </div>
-      <ToastContainer theme="colored" autoClose={2000} />
+      {/* <ToastContainer theme="colored" autoClose={2000} /> */}
     </>
   );
 }

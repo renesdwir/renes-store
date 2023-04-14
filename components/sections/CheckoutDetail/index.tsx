@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { NumericFormat } from "react-number-format";
 
 export default function CheckoutDetail() {
   const [dataTopUp, setDataTopUp] = useState({
@@ -52,14 +53,46 @@ export default function CheckoutDetail() {
           </span>
         </p>
         <p className="text-lg color-palette-1 mb-20">
-          Price <span className="purchase-details">{itemPrice}</span>
+          Price{" "}
+          <span className="purchase-details">
+            {
+              <NumericFormat
+                value={itemPrice}
+                prefix="Rp."
+                displayType="text"
+                thousandSeparator="."
+                decimalSeparator=","
+              />
+            }
+          </span>
         </p>
         <p className="text-lg color-palette-1 mb-20">
-          Tax (10%) <span className="purchase-details">{tax}</span>
+          Tax (10%){" "}
+          <span className="purchase-details">
+            {
+              <NumericFormat
+                value={tax}
+                prefix="Rp."
+                displayType="text"
+                thousandSeparator="."
+                decimalSeparator=","
+              />
+            }
+          </span>
         </p>
         <p className="text-lg color-palette-1 mb-20">
           Total{" "}
-          <span className="purchase-details color-palette-4">{totalPrice}</span>
+          <span className="purchase-details color-palette-4">
+            {
+              <NumericFormat
+                value={totalPrice}
+                prefix="Rp."
+                displayType="text"
+                thousandSeparator="."
+                decimalSeparator=","
+              />
+            }
+          </span>
         </p>
       </div>
       <div className="payment pt-md-50 pb-md-50 pt-10 pb-10">

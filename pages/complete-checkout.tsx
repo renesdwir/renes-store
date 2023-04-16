@@ -267,18 +267,18 @@ export default function CompleteCheckout() {
         <div className="button-group d-flex flex-column mx-auto">
           <Link
             className="btn btn-dashboard fw-medium text-lg text-white rounded-pill mb-16"
-            href="/"
+            href="/member"
             role="button"
           >
             My Dashboard
           </Link>
-          <a
+          <Link
             className="btn btn-whatsapp fw-medium text-lg color-palette-1 rounded-pill"
-            href="#"
+            href={`https://wa.me/0812121212121?text=Saya%20sudah%20melakukan%20pembayaran`}
             role="button"
           >
             WhatsApp ke Admin
-          </a>
+          </Link>
         </div>
       </div>
     </section>

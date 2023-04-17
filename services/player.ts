@@ -39,3 +39,12 @@ export const setCheckout = async (data: CheckoutTypes) => {
     console.log(error);
   }
 };
+export const getMemberOverview = async () => {
+  try {
+    const url = `${BASE_URL}/${API_VERSION}/players/dashboard`;
+
+    return callAPI({ url, method: "GET", token: true });
+  } catch (error) {
+    console.log(error);
+  }
+};

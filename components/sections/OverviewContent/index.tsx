@@ -29,7 +29,7 @@ export default function OverviewContent() {
           <div className="main-content">
             <div className="row">
               {count?.map((item: any) => (
-                <Category nominal={item.value} icon="desktop">
+                <Category key={item._id} nominal={item.value} icon="desktop">
                   {item.name}
                 </Category>
               ))}
@@ -55,12 +55,13 @@ export default function OverviewContent() {
               <tbody>
                 {data?.map((item: any) => (
                   <TableRow
-                    title={`${IMG}/${item.historyVoucherTopup.gameName}`}
+                    key={item._id}
+                    title={item.historyVoucherTopup.gameName}
                     category={item.historyVoucherTopup.category}
                     item={`${item.historyVoucherTopup.coinQuantity} ${item.historyVoucherTopup.coinName}`}
                     price={item.value}
                     statusOrder={item.status}
-                    image={item.historyVoucherTopup.thumbnail}
+                    image={`${IMG}/${item.historyVoucherTopup.thumbnail}`}
                   />
                 ))}
               </tbody>

@@ -17,7 +17,7 @@ export default function OverviewContent() {
       setData(response?.data.data);
     }
   }, []);
-
+  const IMG = process.env.NEXT_PUBLIC_IMG;
   return (
     <main className="main-wrapper">
       <div className="ps-lg-0">
@@ -55,7 +55,7 @@ export default function OverviewContent() {
               <tbody>
                 {data?.map((item: any) => (
                   <TableRow
-                    title={item.historyVoucherTopup.gameName}
+                    title={`${IMG}/${item.historyVoucherTopup.gameName}`}
                     category={item.historyVoucherTopup.category}
                     item={`${item.historyVoucherTopup.coinQuantity} ${item.historyVoucherTopup.coinName}`}
                     price={item.value}

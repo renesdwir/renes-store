@@ -1,8 +1,23 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Category from "./Category";
 import TableRow from "./TableRow";
+import { getMemberOverview } from "../../../services/player";
+import { toast } from "react-toastify";
+import Cookies from "js-cookie";
 
 export default function OverviewContent() {
+  const [count, setCount] = useState([]);
+  const [data, setData] = useState([]);
+  useEffect(async () => {
+    const response = await getMemberOverview();
+    if (response?.error) {
+      toast.error(response.message);
+    } else {
+      setCount(response?.data.count);
+      setData(response?.data.data);
+    }
+  }, []);
+
   return (
     <main className="main-wrapper">
       <div className="ps-lg-0">
@@ -13,15 +28,11 @@ export default function OverviewContent() {
           </p>
           <div className="main-content">
             <div className="row">
-              <Category nominal={18000500} icon="desktop">
-                Game <br /> Desktop
-              </Category>
-              <Category nominal={8455000} icon="mobile">
-                Game <br /> Mobile
-              </Category>
-              <Category nominal={5000000} icon="desktop">
-                Other <br /> Categories
-              </Category>
+              {count?.map((item: any) => (
+                <Category nominal={item.value} icon="desktop">
+                  {item.name}
+                </Category>
+              ))}
             </div>
           </div>
         </div>
@@ -42,38 +53,16 @@ export default function OverviewContent() {
                 </tr>
               </thead>
               <tbody>
-                <TableRow
-                  title="Mobile Legend"
-                  category="mobile"
-                  item={200}
-                  price={290000}
-                  statusOrder="Pending"
-                  image="overview-1"
-                />
-                <TableRow
-                  title="Call of Duty:Modern"
-                  category="Desktop"
-                  item={550}
-                  price={740000}
-                  statusOrder="Success"
-                  image="overview-2"
-                />
-                <TableRow
-                  title="Clash of Clans"
-                  category="Mobile"
-                  item={100}
-                  price={120000}
-                  statusOrder="Failed"
-                  image="overview-3"
-                />
-                <TableRow
-                  title="The Royal Game"
-                  category="Mobile"
-                  item={225}
-                  price={200000}
-                  statusOrder="Pending"
-                  image="overview-4"
-                />
+                {data?.map((item: any) => (
+                  <TableRow
+                    title={item.historyVoucherTopup.gameName}
+                    category={item.historyVoucherTopup.category}
+                    item={`${item.historyVoucherTopup.coinQuantity} ${item.historyVoucherTopup.coinName}`}
+                    price={item.value}
+                    statusOrder={item.status}
+                    image={item.historyVoucherTopup.thumbnail}
+                  />
+                ))}
               </tbody>
             </table>
           </div>

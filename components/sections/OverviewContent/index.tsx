@@ -1,14 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import Category from "./Category";
 import TableRow from "./TableRow";
 import { getMemberOverview } from "../../../services/player";
 import { toast } from "react-toastify";
 import Cookies from "js-cookie";
+import {
+  HistoryTransactionTypes,
+  TopUpCategoriesTypes,
+} from "../../../services/dataTypes";
 
 export default function OverviewContent() {
   const [count, setCount] = useState([]);
   const [data, setData] = useState([]);
-  useEffect(async () => {
+  const getMemberOverviewAPI = useCallback(async () => {
     const response = await getMemberOverview();
     if (response?.error) {
       toast.error(response.message);
@@ -16,6 +20,9 @@ export default function OverviewContent() {
       setCount(response?.data.count);
       setData(response?.data.data);
     }
+  }, []);
+  useEffect(() => {
+    getMemberOverviewAPI();
   }, []);
   const IMG = process.env.NEXT_PUBLIC_IMG;
   return (
@@ -28,7 +35,7 @@ export default function OverviewContent() {
           </p>
           <div className="main-content">
             <div className="row">
-              {count?.map((item: any) => (
+              {count?.map((item: TopUpCategoriesTypes) => (
                 <Category key={item._id} nominal={item.value} icon="desktop">
                   {item.name}
                 </Category>
@@ -53,7 +60,7 @@ export default function OverviewContent() {
                 </tr>
               </thead>
               <tbody>
-                {data?.map((item: any) => (
+                {data?.map((item: HistoryTransactionTypes) => (
                   <TableRow
                     key={item._id}
                     title={item.historyVoucherTopup.gameName}

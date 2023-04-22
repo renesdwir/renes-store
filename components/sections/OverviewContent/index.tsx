@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from "react";
 import Category from "./Category";
 import TableRow from "./TableRow";
-import { getMemberOverview } from "../../../services/player";
+import { getMemberOverview } from "../../../services/member";
 import { toast } from "react-toastify";
 import Cookies from "js-cookie";
 import {

@@ -7,15 +7,20 @@ import { NumericFormat } from "react-number-format";
 
 export default function TransactionContent() {
   const [total, setTotal] = useState(0);
+  const [transactions, setTransactions] = useState([]);
   const getMemberTransactionAPI = useCallback(async () => {
     const response = await getMemberTransactions();
     if (response.error) {
       toast.error(response.message);
     } else {
       setTotal(response.data.total);
+      setTransactions(response.data.data);
     }
   }, []);
-  useEffect(() => {}, []);
+  useEffect(() => {
+    getMemberTransactionAPI();
+  }, []);
+  const IMG = process.env.NEXT_PUBLIC_IMG;
   return (
     <main className="main-wrapper">
       <div className="ps-lg-0">
@@ -62,38 +67,17 @@ export default function TransactionContent() {
                 </tr>
               </thead>
               <tbody id="list_status_item">
-                <TableRow
-                  title="Mobile Legends: The New Battle 2021"
-                  category="Desktop"
-                  image="overview-1"
-                  item={200}
-                  price={290000}
-                  status="Pending"
-                />
-                <TableRow
-                  title="Call of Duty:Modern"
-                  category="Desktop"
-                  image="overview-2"
-                  item={550}
-                  price={740000}
-                  status="Success"
-                />
-                <TableRow
-                  title="Clash of Clans"
-                  category="Mobile"
-                  image="overview-3"
-                  item={100}
-                  price={120000}
-                  status="Failed"
-                />
-                <TableRow
-                  title="The Royal Game"
-                  category="Mobile"
-                  image="overview-4"
-                  item={225}
-                  price={200000}
-                  status="Pending"
-                />
+                {transactions.map((transaction) => (
+                  <TableRow
+                    key={transaction._id}
+                    title={transaction.historyVoucherTopup.gameName}
+                    category={transaction.historyVoucherTopup.category}
+                    image={`${IMG}/${transaction.historyVoucherTopup.thumbnail}`}
+                    item={`${transaction.historyVoucherTopup.coinQuantity} ${transaction.historyVoucherTopup.coinName}`}
+                    price={transaction.value}
+                    status={transaction.status}
+                  />
+                ))}
               </tbody>
             </table>
           </div>

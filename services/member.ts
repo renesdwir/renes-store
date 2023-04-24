@@ -12,7 +12,13 @@ export const getMemberOverview = async () => {
   }
 };
 
-export async function getMemberTransactions() {
-  const url = `${BASE_URL}/${API_VERSION}/players/history`;
+export async function getMemberTransactions(valueParams: string) {
+  let params = "";
+  if (valueParams === "all") {
+    params = "";
+  } else {
+    params = `?status=${valueParams}`;
+  }
+  const url = `${BASE_URL}/${API_VERSION}/players/history${params}`;
   return callAPI({ url, method: "GET", token: true });
 }

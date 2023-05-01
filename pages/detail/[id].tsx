@@ -4,29 +4,42 @@ import Footer from "../../components/sections/Footer";
 import Navbar from "../../components/sections/Navbar";
 import TopUpForm from "../../components/sections/TopUpForm";
 import TopUpItem from "../../components/sections/TopUpItem";
-import { getDetailVoucher } from "../../services/player";
+import { getDetailVoucher, getFeaturedGame } from "../../services/player";
+import {
+  GameItemTypes,
+  NominalsTypes,
+  PaymentTypes,
+} from "../../services/dataTypes";
 
-export default function Detail() {
-  const { query, isReady } = useRouter();
-  const getVoucherDetailAPI = useCallback(async (id: string) => {
-    const data = await getDetailVoucher(id);
-    setDataItem(data.voucher);
-    localStorage.setItem("data-item", JSON.stringify(data.voucher));
-    setNominals(data.voucher.nominals);
-    setPayments(data.payments);
-  }, []);
-  const [dataItem, setDataItem] = useState({
-    name: "",
-    thumbnail: "",
-    category: { name: "" },
-  });
-  const [nominals, setNominals] = useState([]);
-  const [payments, setPayments] = useState([]);
+interface DetailProps {
+  dataItem: GameItemTypes;
+  nominals: NominalsTypes[];
+  payments: PaymentTypes[];
+}
+export default function Detail({ dataItem, nominals, payments }: DetailProps) {
   useEffect(() => {
-    if (isReady && typeof query?.id === "string") {
-      getVoucherDetailAPI(query.id);
-    }
-  }, [isReady]);
+    localStorage.setItem("data-item", JSON.stringify(dataItem));
+  }, []);
+  // const { query, isReady } = useRouter();
+  // const getVoucherDetailAPI = useCallback(async (id: string) => {
+  //   const data = await getDetailVoucher(id);
+  //   setDataItem(data.voucher);
+  //   localStorage.setItem("data-item", JSON.stringify(data.voucher));
+  //   setNominals(data.voucher.nominals);
+  //   setPayments(data.payments);
+  // }, []);
+  // const [dataItem, setDataItem] = useState({
+  //   name: "",
+  //   thumbnail: "",
+  //   category: { name: "" },
+  // });
+  // const [nominals, setNominals] = useState([]);
+  // const [payments, setPayments] = useState([]);
+  // useEffect(() => {
+  //   if (isReady && typeof query?.id === "string") {
+  //     getVoucherDetailAPI(query.id);
+  //   }
+  // }, [isReady]);
   return (
     <>
       <Navbar />
@@ -55,4 +68,35 @@ export default function Detail() {
       <Footer />
     </>
   );
+}
+
+export async function getStaticPaths() {
+  const data = await getFeaturedGame();
+  const paths = data.map((item: GameItemTypes) => {
+    return {
+      params: {
+        id: item._id,
+      },
+    };
+  });
+  return {
+    paths,
+    fallback: false,
+  };
+}
+interface GetStaticProps {
+  params: {
+    id: string;
+  };
+}
+export async function getStaticProps({ params }: GetStaticProps) {
+  const { id } = params;
+  const data = await getDetailVoucher(id);
+  return {
+    props: {
+      dataItem: data.voucher,
+      nominals: data.voucher.nominals,
+      payments: data.payments,
+    },
+  };
 }

@@ -1,8 +1,11 @@
 export interface InputProps {
   label: string;
+  value?: string;
+  onChange?: (e: any) => void;
+  disabled?: boolean;
 }
 export default function Input(props: InputProps) {
-  const { label, ...nativeProps } = props;
+  const { label, value, onChange, disabled, ...nativeProps } = props;
   return (
     <>
       <label
@@ -15,6 +18,9 @@ export default function Input(props: InputProps) {
         type="text"
         className="form-control rounded-pill text-lg"
         id="name"
+        value={value}
+        onChange={onChange}
+        disabled={disabled}
         name="name"
         aria-describedby="name"
         placeholder="Enter your name"

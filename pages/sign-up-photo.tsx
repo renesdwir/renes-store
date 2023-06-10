@@ -10,8 +10,8 @@ export default function SignUpPhoto() {
   const router = useRouter();
   const [categories, setCategories] = useState([]);
   const [favorite, setFavorite] = useState("");
-  const [image, setImage] = useState("");
-  const [imagePreview, setImagePreview] = useState(null);
+  const [image, setImage] = useState<File | null>(null);
+  const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [localForm, setLocalForm] = useState({
     name: "",
     email: "",
@@ -33,7 +33,9 @@ export default function SignUpPhoto() {
     const getLocalForm = await localStorage.getItem("user-form");
     const form = JSON.parse(getLocalForm!);
     const data = new FormData();
-    data.append("image", image);
+    if (image) {
+      data.append("image", image);
+    }
     data.append("email", form.email);
     data.append("name", form.name);
     data.append("password", form.password);
@@ -81,9 +83,11 @@ export default function SignUpPhoto() {
                     name="avatar"
                     accept="image/png, image/jpeg"
                     onChange={(e) => {
-                      const img = e.target.files[0];
-                      setImage(img);
-                      setImagePreview(URL.createObjectURL(img));
+                      if (e.target.files) {
+                        const img = e.target.files[0];
+                        setImage(img);
+                        setImagePreview(URL.createObjectURL(img));
+                      }
                     }}
                   />
                 </div>
@@ -109,7 +113,7 @@ export default function SignUpPhoto() {
                   value={favorite}
                   onChange={(e) => setFavorite(e.target.value)}
                 >
-                  {categories.map((category) => {
+                  {categories.map((category: any) => {
                     return (
                       <option key={category._id} value={category._id}>
                         {category.name}

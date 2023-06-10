@@ -17,7 +17,8 @@ export default function EditProfile() {
     avatar: "",
     id: "",
   });
-  const [imagePreview, setImagePreview] = useState(null);
+  const [imagePreview, setImagePreview] = useState<string | null>(null);
+
   useEffect(() => {
     const token = Cookies.get("token");
     if (token) {
@@ -37,6 +38,7 @@ export default function EditProfile() {
     if (response.error) {
       toast.error(response.message);
     } else {
+      toast.success("Update Success, Please Re-login");
       Cookies.remove("token");
       router.push("/sign-in");
     }
@@ -53,20 +55,20 @@ export default function EditProfile() {
                 <div className="image-upload">
                   <label htmlFor="avatar">
                     {imagePreview ? (
-                      <Image
+                      <img
                         src={imagePreview}
                         width={90}
                         height={90}
-                        style={{ borderRadius: "100%" }}
+                        style={{ borderRadius: "100%", objectFit: "cover" }}
                         alt="upload-logo"
                       />
                     ) : (
-                      <Image
+                      <img
                         src={user.avatar}
                         width={90}
                         height={90}
                         alt="upload-logo"
-                        style={{ borderRadius: "100%" }}
+                        style={{ borderRadius: "100%", objectFit: "cover" }}
                       />
                     )}
                   </label>
@@ -76,9 +78,14 @@ export default function EditProfile() {
                     name="avatar"
                     accept="image/png, image/jpeg"
                     onChange={(e) => {
-                      const img = e.target.files[0];
-                      setImagePreview(URL.createObjectURL(img));
-                      return setUser({ ...user, avatar: img });
+                      if (e.target.files) {
+                        const img = e.target.files[0];
+                        setImagePreview(URL.createObjectURL(img));
+                        return setUser((prevUser: any) => ({
+                          ...prevUser,
+                          avatar: img,
+                        }));
+                      }
                     }}
                   />
                 </div>
@@ -93,7 +100,11 @@ export default function EditProfile() {
                 />
               </div>
               <div className="pt-30">
-                <Input label="Email Address" disabled value={user.email} />
+                <Input
+                  label="Email Address"
+                  disabled={true}
+                  value={user.email}
+                />
               </div>
               {/* <div className="pt-30">
                 <Input label="Phone" />
